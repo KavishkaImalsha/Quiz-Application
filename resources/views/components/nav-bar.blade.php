@@ -1,4 +1,4 @@
-<nav class="bg-blue-500 grid grid-cols-2">
+<nav class="bg-gray-600 grid grid-cols-2">
     <div class="w-16 h-16 flex ml-2">
         <img src="{{asset("images/logo.jpeg")}}" alt="logo" class="rounded-full flex">
         <h3 class="flex pt-4 pl-2 text-white font-bold text-3xl">Smarty <span class="text-amber-400">Quiz</span></h3>
