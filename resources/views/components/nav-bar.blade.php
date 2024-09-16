@@ -5,6 +5,12 @@
     </div>
 
     <div class="flex justify-end pt-3 font-bold">
+        <a
+            href="{{url('/')}}"
+            class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+        >
+            Home
+        </a>
         @if (Route::has('login'))
             @auth
                 <a
