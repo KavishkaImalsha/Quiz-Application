@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->text('course_name');
             $table->text('description');
-            $table->time('quizzes_duration');
             $table->timestamps();
         });
     }

@@ -11,9 +11,8 @@ class course extends Model
 
     protected $table = 'courses';
 
-    protected $fillable = [
+    protected $fillable= [
         'course_name',
         'description',
-        'quizzes_duration'
     ];
 }

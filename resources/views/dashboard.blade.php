@@ -13,16 +13,6 @@
                 </h2>
     </x-slot>
 
-{{--    <div class="py-12">--}}
-{{--        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">--}}
-{{--            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">--}}
-{{--                <div class="p-6 text-gray-900 dark:text-gray-100">--}}
-{{--                    {{ __("You're logged in!") }}--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
     <div class="m-8 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="">
             <h1 class="text-3xl font-bold text-center font-jumbotron py-5">Did you want to add new course with quiz?</h1>
@@ -30,7 +20,7 @@
         </div>
     </div>
 
-    <header class="bg-white dark:bg-gray-800 shadow">
+    <header class="bg-white dark:bg-gray-800 shadow-lg">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <h2 class="font-bold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Created Courses
