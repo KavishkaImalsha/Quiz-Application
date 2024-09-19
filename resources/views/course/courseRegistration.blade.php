@@ -3,7 +3,7 @@
         <form method="POST" action="{{route('course-register')}}">
             @csrf
             <label class="mt-4 text-md font-bold block text-gray-700 dark:text-gray-300" for="course_name">What is the course name?</label>
-            <input class="mt-2 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" type="text" name="course_name" id="course_name" placeholder="Course Name">
+            <input class="mt-2 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" type="text" name="course_name" id="course_name" placeholder="Course Name" autocomplete="off">
 
             <label class="mt-4 text-md font-bold block text-gray-700 dark:text-gray-300" for="description">Content description</label>
             <textarea class="mt-2 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" id="description" name="description" placeholder="Course Description"></textarea>

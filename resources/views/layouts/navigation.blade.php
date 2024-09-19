@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('course-register')" :active="request()->routeIs('course-register')">
                         {{ __('Add Course') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('quiz-register')" :active="request()->routeIs('quiz-register')">
+                        {{ __('Add Quizzes') }}
+                    </x-nav-link>
                 </div>
             </div>
 
