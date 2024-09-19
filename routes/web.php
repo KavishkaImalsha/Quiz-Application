@@ -19,7 +19,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/course', [CourseController::class, 'show'])->name('course-register');
     Route::post('/course', [CourseController::class, 'courseRegistrationDatastore']);
 
-    Route::get('/quiz', [\App\Http\Controllers\QuizController::class, 'show'])->name('quiz-register');
+    Route::get('/quiz/quiz-registration', [\App\Http\Controllers\QuizController::class, 'show'])->name('quiz-register');
+    Route::get('/quiz/add-quizzes/{data}', [\App\Http\Controllers\QuizController::class, 'addQuizzesPage'])->name('add-quizzes');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function (){
