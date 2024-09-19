@@ -1,9 +1,5 @@
 <?php
-    $courses = [
-        ['name' => 'Introduction to Software Engineering', 'des' => "Learn the basics of software development, design principles, and methodologies. This quiz covers key concepts like the software development life cycle (SDLC), version control, and agile practices. Perfect for beginners looking to build a solid foundation!"],
-        ['name' => 'Data Structures and Algorithms', 'des' => "Master the essential data structures (arrays, linked lists, trees) and algorithms (sorting, searching, recursion) that every software engineer needs to know. These quizzes will test your problem-solving skills and logic"],
-        ['name' => 'Object-Oriented Programming (OOP)', 'des' => "Dive into the core principles of object-oriented programming, including encapsulation, inheritance, and polymorphism. Test your knowledge with real-world coding scenarios and challenges focused on Java, Python, and C++."],
-    ];
+    $courses = \Illuminate\Support\Facades\DB::select('select * from courses');
 ?>
 
 <x-app-layout>
@@ -31,9 +27,9 @@
     <div class="grid grid-cols-3 gap-2 mx-8 my-3">
         @foreach($courses as $course)
             <div class="bg-white border rounded shadow-lg group hover:cursor-pointer">
-                <h1 class="text-center font-bold font-jumbotron text-xl py-2 group-hover:text-2xl">{{$course['name']}}</h1>
-                <p class="text-lg text-gray-400 px-6 group-hover:text-xl">{{$course['des']}}</p>
-                <button type="button" class="w-[50%] ml-[20%] mt-4 text-white bg-gray-800 hover:w-[60%] hover:ml-[15%] hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Edit Course</button>
+                <h1 class="text-center font-bold font-jumbotron text-xl py-2 group-hover:text-2xl">{{$course->course_name}}</h1>
+                <p class="text-lg text-gray-400 px-6 group-hover:text-xl">{{$course->description}}</p>
+                <a href="{{route('add-quizzes', $course->id)}}"><button type="button" class="w-[50%] ml-[20%] mt-4 text-white bg-gray-800 hover:w-[60%] hover:ml-[15%] hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Edit Course</button></a>
             </div>
         @endforeach
     </div>
