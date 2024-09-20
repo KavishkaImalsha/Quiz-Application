@@ -23,6 +23,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/quiz', [\App\Http\Controllers\QuizController::class, 'show'])->name('quiz-register');
     Route::get('/quiz/{data}', [\App\Http\Controllers\QuizController::class, 'addQuizzesPage'])->name('add-quizzes');
     Route::post('/quiz/{data}', [\App\Http\Controllers\QuizController::class, 'store'])->name('quiz-registration');
+
+    Route::get('/Answer/correct-answer', [\App\Http\Controllers\AnswerController::class, 'show'])->name('answer-register');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function (){
