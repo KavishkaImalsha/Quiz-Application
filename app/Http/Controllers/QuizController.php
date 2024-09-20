@@ -19,6 +19,7 @@ class QuizController extends Controller
     public function addQuizzesPage($data): View|Factory|Application
     {
         $courseName = DB::select('select course_name from courses where id=?', [$data]);
+
         return view('quiz.add-quizzes',['courseName' => $courseName[0]->course_name, 'data' => $data]);
     }
 
@@ -43,7 +44,7 @@ class QuizController extends Controller
 
             session()->flash('success', '!! Quiz is successfully added !!');
 
-            return redirect()->route('add-quizzes', $data);
+            return redirect()->route( "answer-register");
         }
     }
 }

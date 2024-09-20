@@ -7,12 +7,7 @@
     </x-slot>
 
     <div class="font-sans text-gray-900 mt-10 m-auto w-full sm:max-w-md px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-        @if(session('success'))
-            <div class="text-center bg-blue-200 text-lg font-bold text-green-500 rounded" id="success_msg">
-                <h3>{{session('success')}}</h3>
-            </div>
-        @endif
-        <form action="{{route('add-quizzes', $data)}}" method="POST">
+        <form action="{{route('quiz-registration', $data)}}" method="POST">
             @csrf
             <label for="quiz" class="mt-4 text-md font-bold block text-gray-700 dark:text-gray-300">Enter the quiz</label>
             <input type="text" id="quiz" name="quiz" placeholder="Enter the quiz" class="mt-2 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
