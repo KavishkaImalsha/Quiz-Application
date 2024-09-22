@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,11 +22,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/course', [CourseController::class, 'show'])->name('course-register');
     Route::post('/course', [CourseController::class, 'courseRegistrationDatastore']);
 
-    Route::get('/quiz', [\App\Http\Controllers\QuizController::class, 'show'])->name('quiz-register');
-    Route::get('/quiz/{data}', [\App\Http\Controllers\QuizController::class, 'addQuizzesPage'])->name('add-quizzes');
-    Route::post('/quiz/{data}', [\App\Http\Controllers\QuizController::class, 'store'])->name('quiz-registration');
+    Route::get('/quiz', [QuizController::class, 'show'])->name('quiz-register');
+    Route::get('/quiz/{data}', [QuizController::class, 'addQuizzesPage'])->name('add-quizzes');
+    Route::post('/quiz/{data}', [QuizController::class, 'store'])->name('quiz-registration');
+    Route::get('/quiz/{course_id}/{quiz_id}', [QuizController::class, 'course_overview'])->name('course_overview');
 
-    Route::get('/Answer/correct-answer', [\App\Http\Controllers\AnswerController::class, 'show'])->name('answer-register');
+    Route::get('/Answer/correct-answer/{data}', [AnswerController::class, 'show'])->name('answer-register');
+    Route::post('/Answer/correct-answer/{data}', [AnswerController::class, 'store'])->name('add-answer');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function (){
