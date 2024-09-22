@@ -33,7 +33,7 @@ class AnswerController extends Controller
 
             $course_id = DB::select('SELECT course_id FROM quizzes WHERE id=?', [$data]);
 
-            return redirect()->route('show-quiz', ['course_id' => $course_id[0]->course_id, 'quiz_id' => $data]);
+            return redirect()->route('add-quizzes', $course_id[0]->course_id);
         }
     }
 }

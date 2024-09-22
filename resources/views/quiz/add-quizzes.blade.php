@@ -6,7 +6,8 @@
         </h2>
     </x-slot>
 
-    <div class="font-sans text-gray-900 mt-10 m-auto w-full sm:max-w-md px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg"@if($errors->any())
+    <div class="font-sans text-gray-900 mt-10 m-auto w-full sm:max-w-md px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+        @if($errors->any())
             @foreach($errors->all() as $error)
                 <div class="bg-red-500 rounded m-2 text-white text-center">
                     <h3>{{$error}}</h3>
