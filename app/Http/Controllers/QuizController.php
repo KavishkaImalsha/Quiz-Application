@@ -25,11 +25,15 @@ class QuizController extends Controller
             $answer = DB::select('select * from answers where quiz_id = ?', [$quiz->id]);
             $answers[$quiz->id] = $answer;
         }
-        return view('quiz.add-quizzes',['courseName' => $courseName[0]->course_name, 'data' => $data, 'quizzes' => $quizzes_details, 'answers' => $answers]);
+        return view('quiz.add-quizzes',['courseName' => $courseName[0]->course_name, 'course_id' => $data, 'quizzes' => $quizzes_details, 'answers' => $answers]);
     }
 
-    public function course_overview($course_id, $quiz_id){
+    public function deleteQuiz($course_id, $quiz_id): \Illuminate\Http\RedirectResponse
+    {
+        DB::table('quizzes')->where('id', '=', $quiz_id)->delete();
+        DB::table('answers')->where('quiz_id', '=', $quiz_id)->delete();
 
+        return redirect()->route('add-quizzes', $course_id);
     }
 
     public function store(Request $request, $data){

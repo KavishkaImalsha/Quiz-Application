@@ -25,7 +25,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/quiz', [QuizController::class, 'show'])->name('quiz-register');
     Route::get('/quiz/{data}', [QuizController::class, 'addQuizzesPage'])->name('add-quizzes');
     Route::post('/quiz/{data}', [QuizController::class, 'store'])->name('quiz-registration');
-    Route::get('/quiz/{course_id}/{quiz_id}', [QuizController::class, 'course_overview'])->name('course_overview');
+    Route::get('/quiz/{course_id}/{quiz_id}', [QuizController::class, 'deleteQuiz'])->name('delete-quiz');
 
     Route::get('/Answer/correct-answer/{data}', [AnswerController::class, 'show'])->name('answer-register');
     Route::post('/Answer/correct-answer/{data}', [AnswerController::class, 'store'])->name('add-answer');
