@@ -66,34 +66,27 @@
     </div>
 
     @if(sizeof($quizzes) != 0)
-        @foreach($quizzes as $quiz)
-            <div class="grid grid-cols-4 m-2 bg-white rounded shadow-lg hover:cursor-pointer hover:shadow-2xl">
-                <div class="text-center text-lg">
-                    <p>{{$quiz->quiz}}</p>
+        <div class="grid grid-cols-3 gap-2 m-3 p-2">
+            @foreach($quizzes as $quiz)
+                <div class="rounded bg-white text-lg grop hover:shadow-2xl hover:cursor-pointer">
+                    <p class="p-3 font-bold">{{$quiz->quiz}}</p>
+                    <ul>
+                        @foreach(json_decode($quiz->choices) as $choice)
+                            <li class="pl-5 text-gray-400">{{$choice}}</li>
+                        @endforeach
+                        @foreach($answers[$quiz->id] as $answer)
+                            <h1 class="px-3 py-2 font-bold text-md">Correct Answer</h1>
+                            <p class="px-5 text-sm">{{$answer->answer}}</p>
+
+                            <h1 class="px-3 py-2 font-bold text-md">Description</h1>
+                            <p class="px-5 text-sm">{{$answer->description}}</p>
+                        @endforeach
+                    </ul>
+                    <a href="{{route('edit-blade', [$course_id ,$quiz->id])}}"><button type="button" class="ml-[25%] my-3 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Edit</button></a>
+                    <a href="{{route('delete-quiz', [$course_id, $quiz->id])}}"><button type="button" class="mx-3 my-3 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button></a>
                 </div>
-                <div class="text-center text-lg">
-                    @foreach(json_decode($quiz->choices) as $choice)
-                        <ul>
-                            <li>{{$choice}}</li>
-                        </ul>
-                    @endforeach
-                </div>
-                <div class="grid grid-cols-2">
-                    @foreach($answers[$quiz->id] as $answer)
-                        <div>
-                            <p>{{$answer->answer}}</p>
-                        </div>
-                        <div>
-                            <p>{{$answer->description}}</p>
-                        </div>
-                    @endforeach
-                </div>
-                <div>
-                    <a href="{{route('edit-blade', [$course_id ,$quiz->id])}}"><button type="button" class="mx-10 my-8 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Edit</button></a>
-                    <a href="{{route('delete-quiz', [$course_id, $quiz->id])}}"><button type="button" class="mx-10 my-8 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button></a>
-                </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     @else
         <p class="text-gray-500 text-5xl font-jumbotron text-center">Nothing to show</p>
     @endif
