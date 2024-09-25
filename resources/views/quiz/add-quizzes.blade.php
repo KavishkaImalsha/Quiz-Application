@@ -7,6 +7,7 @@
     </x-slot>
 
     <div class="font-sans text-gray-900 mt-10 m-auto w-full sm:max-w-md px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+        <h3 class="text-center font-bold text-3xl">ADD QUIZ</h3>
         @if($errors->any())
             @foreach($errors->all() as $error)
                 <div class="bg-red-500 rounded m-2 text-white text-center">
@@ -83,7 +84,7 @@
                     @endforeach
                 </div>
                 <div>
-                    <button type="button" class="mx-10 my-8 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Edit</button>
+                    <a href="{{route('edit-blade', [$course_id ,$quiz->id])}}"><button type="button" class="mx-10 my-8 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Edit</button></a>
                     <a href="{{route('delete-quiz', [$course_id, $quiz->id])}}"><button type="button" class="mx-10 my-8 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button></a>
                 </div>
             </div>

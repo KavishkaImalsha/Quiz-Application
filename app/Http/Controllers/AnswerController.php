@@ -36,4 +36,31 @@ class AnswerController extends Controller
             return redirect()->route('add-quizzes', $course_id[0]->course_id);
         }
     }
+
+    public function editAnswer($quiz_id, $course_id)
+    {
+        $answer = DB::select('select * from answers where quiz_id=?', [$quiz_id]);
+        var_dump($answer);
+        return view('Answer.edit-answer', ['answer' => $answer[0], 'course_id' => $course_id]);
+    }
+
+    public function updateAnswer(Request $request,$quiz_id, $course_id)
+    {
+        $validateRequest = $request->validate([
+            'answer' => ['required', 'string'],
+            'description' => ['required', 'string']
+        ]);
+
+        if($validateRequest){
+            $answer = Answer::query()->where('quiz_id', $quiz_id)->first();
+
+            $answer->answer = $validateRequest['answer'];
+            $answer->description = $validateRequest['description'];
+            $answer->update();
+
+            session()->flash('answer_success', '!! Answer successfully added !!');
+
+            return redirect()->route('add-quizzes', $course_id);
+        }
+    }
 }

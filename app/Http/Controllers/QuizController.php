@@ -62,4 +62,34 @@ class QuizController extends Controller
             return redirect()->route( "answer-register", [$quiz_id[0]->id]);
         }
     }
+
+    public function edit($course_id, $quiz_id){
+        $quiz = DB::select('select * from quizzes where id=?', [$quiz_id]);
+        $choices =DB::select('select choices from quizzes where id=?', [$quiz_id]);
+        return \view('quiz.edit-quiz', ['quiz' => $quiz[0], 'choices' => json_decode($choices[0]->choices), 'course_id' => $course_id]);
+    }
+
+    public function update(Request $request, $quiz_id, $course_id)
+    {
+        $validateRequest = $request->validate([
+            'quiz' => ['required', 'string'],
+            'choice1' => ['required', 'string'],
+            'choice2' => ['required', 'string'],
+            'choice3' => ['required', 'string'],
+            'choice4' => ['required', 'string'],
+        ]);
+
+        if($validateRequest){
+            $choices = [$validateRequest['choice1'], $validateRequest['choice2'], $validateRequest['choice3'], $validateRequest['choice4']];
+
+            $quiz = quiz::find($quiz_id);
+            $quiz->course_id = $course_id;
+            $quiz->quiz = $validateRequest['quiz'];
+            $quiz->choices = json_encode($choices);
+            $quiz->save();
+
+            session()->flash('updateSuccess', '!!! Update Successful !!!');
+        }
+        return redirect()->route('edit-answer', [$quiz_id, $course_id]);
+    }
 }
