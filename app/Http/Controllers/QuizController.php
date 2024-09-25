@@ -87,8 +87,6 @@ class QuizController extends Controller
             $quiz->quiz = $validateRequest['quiz'];
             $quiz->choices = json_encode($choices);
             $quiz->save();
-
-            session()->flash('updateSuccess', '!!! Update Successful !!!');
         }
         return redirect()->route('edit-answer', [$quiz_id, $course_id]);
     }

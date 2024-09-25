@@ -48,9 +48,14 @@
 
     <hr class="w-full bg-gray-400 my-2 h-0.5">
 
-    @if(session('answer_success'))
+    @if(session('Quiz_Add'))
         <div class="mx-[20%] mt-2 text-center bg-blue-200 text-lg font-bold text-green-500 rounded" id="success_msg">
-            <h3>{{session('answer_success')}}</h3>
+            <h3>{{session('Quiz_Add')}}</h3>
+        </div>
+
+    @elseif(session('quiz_update'))
+        <div class="mx-[20%] mt-2 text-center bg-blue-200 text-lg font-bold text-green-500 rounded" id="success_msg">
+            <h3>{{session('quiz_update')}}</h3>
         </div>
     @endif
 

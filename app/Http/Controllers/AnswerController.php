@@ -29,7 +29,7 @@ class AnswerController extends Controller
             $answer->description = $validateRequest['description'];
             $answer->save();
 
-            session()->flash('answer_success', '!! Answer successfully added !!');
+            session()->flash('Quiz_Add', '!! Quiz successfully added !!');
 
             $course_id = DB::select('SELECT course_id FROM quizzes WHERE id=?', [$data]);
 
@@ -40,7 +40,6 @@ class AnswerController extends Controller
     public function editAnswer($quiz_id, $course_id)
     {
         $answer = DB::select('select * from answers where quiz_id=?', [$quiz_id]);
-        var_dump($answer);
         return view('Answer.edit-answer', ['answer' => $answer[0], 'course_id' => $course_id]);
     }
 
@@ -58,7 +57,7 @@ class AnswerController extends Controller
             $answer->description = $validateRequest['description'];
             $answer->update();
 
-            session()->flash('answer_success', '!! Answer successfully added !!');
+            session()->flash('quiz_update', '!!! Quiz update Successful !!!');
 
             return redirect()->route('add-quizzes', $course_id);
         }

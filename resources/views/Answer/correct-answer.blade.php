@@ -1,12 +1,14 @@
 <x-app-layout>
-    @if(session('success'))
-        <div class="mx-[20%] mt-2 text-center bg-blue-200 text-lg font-bold text-green-500 rounded" id="success_msg">
-            <h3>{{session('success')}}</h3>
-        </div>
-    @endif
-
     <div class="font-sans text-gray-900 mt-10 m-auto w-full sm:max-w-md px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
-        <h3 class="font-bold text-xl text-center">{{$quiz}}</h3>
+        <h3 class="text-center font-bold text-3xl">ADD ANSWER</h3>
+        <p class="font-bold text-xl mt-4">{{$quiz}}</p>
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                <div class="bg-red-500 rounded m-2 text-white text-center">
+                    <h3>{{$error}}</h3>
+                </div>
+            @endforeach
+        @endif
 
         <form method="POST" action="{{route('answer-register', $id)}}">
             @csrf

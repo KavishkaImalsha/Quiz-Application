@@ -1,6 +1,13 @@
 <x-app-layout>
     <div class="font-sans text-gray-900 mt-10 m-auto w-full sm:max-w-md px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
         <h3 class="text-center font-bold text-3xl">EDIT ANSWER</h3>
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                <div class="bg-red-500 rounded m-2 text-white text-center">
+                    <h3>{{$error}}</h3>
+                </div>
+            @endforeach
+        @endif
 
         <form method="POST" action="{{route('update-answer', [$answer->quiz_id, $course_id])}}">
             @csrf
