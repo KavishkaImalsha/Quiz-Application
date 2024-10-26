@@ -16,6 +16,7 @@
         "vite": "^5.0"
     },
     "dependencies": {
-        "html-duration-picker": "^2.4.0"
+        "html-duration-picker": "^2.4.0",
+        "sweetalert2": "^11.14.4"
     }
 }

@@ -6,6 +6,7 @@ use App\Models\quiz;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -35,7 +36,7 @@ class QuizController extends Controller
         return view('quiz.add-quizzes',['courseName' => $courseName[0]->course_name, 'course_id' => $data, 'quizzes' => $quizzes_details, 'answers' => $answers]);
     }
 
-    public function deleteQuiz($course_id, $quiz_id): \Illuminate\Http\RedirectResponse
+    public function deleteQuiz($course_id, $quiz_id): RedirectResponse
     {
         DB::table('quizzes')->where('id', '=', $quiz_id)->delete();
         DB::table('answers')->where('quiz_id', '=', $quiz_id)->delete();
@@ -72,14 +73,15 @@ class QuizController extends Controller
         }
     }
 
-    public function edit($course_id, $quiz_id){
+    public function edit($course_id, $quiz_id): Factory|Application|View
+    {
         $quizDetails = DB::table('quizzes')->where('id', $quiz_id)->first();
         $answerDetails = DB::table('answers')->where('quiz_id', $quiz_id)->first();
         $correctAnswer = DB::table('quizzes')->where('id', $quiz_id)->value($answerDetails->answer);
         return \view('quiz.edit-quiz', ['quizDetails' => $quizDetails, 'answerDetails' => $answerDetails, 'correctAnswer' => $correctAnswer, 'course_id' => $course_id]);
     }
 
-    public function update(Request $request, $quiz_id, $course_id)
+    public function update(Request $request, $quiz_id, $course_id): RedirectResponse
     {
         $validateRequest = $request->validate([
             'quiz' => ['required', 'string'],

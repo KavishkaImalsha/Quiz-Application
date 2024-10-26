@@ -4,6 +4,7 @@ use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,9 +37,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:user'])->group(function (){
-    Route::get('/user/dashboard', function (){
-        return view('user.dashboard');
-    })->name('user-dashboard');
+    Route::get('/user/dashboard', [UserController::class, 'userHome'])->name('user-dashboard');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/user/user-enroll-courses/{userId}/{courseId}', [UserController::class, 'userEnrollCourses'])->name('enroll-course');
+    Route::get('/user/user-enroll-courses/{userId}', [UserController::class, 'userEnrolledCourses'])->name('enrolled-courses');
 });
 
 
