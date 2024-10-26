@@ -14,19 +14,13 @@ class AnswerController extends Controller
         return view('Answer.correct-answer', ['quiz' => $quiz[0]->quiz,'id' => $data]);
     }
 
-    public function store(Request $request, $data)
+    public function store($data, $correctAnswer, $description)
     {
-        $validateRequest = $request->validate([
-            'answer' => ['required', 'string'],
-            'description' => ['required', 'string']
-        ]);
-
-        if($validateRequest){
             $answer = new Answer();
 
             $answer->quiz_id = $data;
-            $answer->answer = $validateRequest['answer'];
-            $answer->description = $validateRequest['description'];
+            $answer->answer = $correctAnswer;
+            $answer->description = $description;
             $answer->save();
 
             session()->flash('Quiz_Add', '!! Quiz successfully added !!');
@@ -34,7 +28,7 @@ class AnswerController extends Controller
             $course_id = DB::select('SELECT course_id FROM quizzes WHERE id=?', [$data]);
 
             return redirect()->route('add-quizzes', $course_id[0]->course_id);
-        }
+
     }
 
     public function editAnswer($quiz_id, $course_id)
@@ -43,23 +37,16 @@ class AnswerController extends Controller
         return view('Answer.edit-answer', ['answer' => $answer[0], 'course_id' => $course_id]);
     }
 
-    public function updateAnswer(Request $request,$quiz_id, $course_id)
+    public function updateAnswer($quiz_id, $course_id, $correctAnswer, $desc)
     {
-        $validateRequest = $request->validate([
-            'answer' => ['required', 'string'],
-            'description' => ['required', 'string']
-        ]);
-
-        if($validateRequest){
             $answer = Answer::query()->where('quiz_id', $quiz_id)->first();
 
-            $answer->answer = $validateRequest['answer'];
-            $answer->description = $validateRequest['description'];
+            $answer->answer = $correctAnswer;
+            $answer->description = $desc;
             $answer->update();
 
             session()->flash('quiz_update', '!!! Quiz update Successful !!!');
 
             return redirect()->route('add-quizzes', $course_id);
-        }
     }
 }

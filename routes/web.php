@@ -30,9 +30,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/quiz/edit-quiz/{quiz_id}/{course_id}',[QuizController::class, 'update'])->name('update-quiz');
 
     Route::get('/Answer/correct-answer/{data}', [AnswerController::class, 'show'])->name('answer-register');
-    Route::post('/Answer/correct-answer/{data}', [AnswerController::class, 'store'])->name('add-answer');
+    Route::get('/Answer/correct-answer/{quiz_id}/{correctAnswer}/{description}', [AnswerController::class, 'store'])->name('add-answer');
     Route::get('/Answer/edit-answer/{quiz_id}/{course_id}', [AnswerController::class, 'editAnswer'])->name('edit-answer');
-    Route::put('/Answer/edit-answer/{quiz_id}/{course_id}', [AnswerController::class, 'updateAnswer'])->name('update-answer');
+    Route::get('/Answer/edit-answer/{quiz_id}/{course_id}/{correctAnswer}/{desc}', [AnswerController::class, 'updateAnswer'])->name('update-answer');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function (){

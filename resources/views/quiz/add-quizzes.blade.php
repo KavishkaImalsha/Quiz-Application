@@ -20,27 +20,43 @@
             <label for="quiz" class="mt-4 text-md font-bold block text-gray-700 dark:text-gray-300">Enter the quiz</label>
             <input type="text" id="quiz" name="quiz" placeholder="Enter the quiz" autocomplete="off" class="mt-2 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
 
-            <div class="grid grid-cols-2 gap-2">
+
                 <div>
                     <label for="choice1" class="mt-4 text-md font-bold block text-gray-700 dark:text-gray-300">Choice 01</label>
                     <input type="text" id="choice1" name="choice1" placeholder="Choice 01" autocomplete="off" class="mt-2 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+
+                    <input type="radio" name="correct" value="choice1">
+                    <label for="correct">Correct</label>
                 </div>
 
                 <div>
                     <label for="choice2" class="mt-4 text-md font-bold block text-gray-700 dark:text-gray-300">Choice 02</label>
                     <input type="text" id="choice2" name="choice2" placeholder="Choice 02" autocomplete="off" class="mt-2 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+
+                    <input type="radio" name="correct" value="choice2">
+                    <label for="correct">Correct</label>
                 </div>
 
                 <div>
                     <label for="choice3" class="mt-4 text-md font-bold block text-gray-700 dark:text-gray-300">Choice 03</label>
                     <input type="text" id="choice3" name="choice3" placeholder="Choice 03" autocomplete="off" class="mt-2 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+
+                    <input type="radio" name="correct" value="choice3">
+                    <label for="correct">Correct</label>
                 </div>
 
                 <div>
                     <label for="choice4" class="mt-4 text-md font-bold block text-gray-700 dark:text-gray-300">Choice 04</label>
                     <input type="text" id="choice4" name="choice4" placeholder="Choice 04" autocomplete="off" class="mt-2 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+
+                    <input type="radio" name="correct" value="choice4">
+                    <label for="correct">Correct</label>
                 </div>
-            </div>
+
+                <div>
+                    <label for="description" class="mt-4 text-md font-bold block text-gray-700 dark:text-gray-300">Answer Description</label>
+                    <textarea name="description" cols="47" rows="5" placeholder="Answer Description" class="mt-2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"></textarea>
+                </div>
 
             <button type="submit" class="px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 w-[50%] mt-4 ml-[25%]">Add Quiz</button>
         </form>
@@ -71,16 +87,15 @@
                 <div class="rounded bg-white text-lg grop hover:shadow-2xl hover:cursor-pointer">
                     <p class="p-3 font-bold">{{$quiz->quiz}}</p>
                     <ul>
-                        @foreach(json_decode($quiz->choices) as $choice)
-                            <li class="pl-5 text-gray-400">{{$choice}}</li>
-                        @endforeach
-                        @foreach($answers[$quiz->id] as $answer)
+                        <li class="pl-5 text-gray-400">{{$quiz->choice1}}</li>
+                        <li class="pl-5 text-gray-400">{{$quiz->choice2}}</li>
+                        <li class="pl-5 text-gray-400">{{$quiz->choice3}}</li>
+                        <li class="pl-5 text-gray-400">{{$quiz->choice4}}</li>
                             <h1 class="px-3 py-2 font-bold text-md">Correct Answer</h1>
-                            <p class="px-5 text-sm">{{$answer->answer}}</p>
+                            <p class="px-5 text-sm">{{$answers[$quiz->id]['answer']}}</p>
 
                             <h1 class="px-3 py-2 font-bold text-md">Description</h1>
-                            <p class="px-5 text-sm">{{$answer->description}}</p>
-                        @endforeach
+                            <p class="px-5 text-sm">{{$answers[$quiz->id]['desc']}}</p>
                     </ul>
                     <a href="{{route('edit-blade', [$course_id ,$quiz->id])}}"><button type="button" class="ml-[25%] my-3 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Edit</button></a>
                     <a href="{{route('delete-quiz', [$course_id, $quiz->id])}}"><button type="button" class="mx-3 my-3 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button></a>
@@ -90,11 +105,4 @@
     @else
         <p class="text-gray-500 text-5xl font-jumbotron text-center">Nothing to show</p>
     @endif
-{{--    <script type="text/javascript">--}}
-{{--        $("document").ready(function () {--}}
-{{--            setTimeout(function (){--}}
-{{--                $("div.success_msg").remove();--}}
-{{--        }, 1000);--}}
-{{--        });--}}
-{{--    </script>--}}
 </x-app-layout>

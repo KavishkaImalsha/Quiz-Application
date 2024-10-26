@@ -14,6 +14,9 @@ class quiz extends Model
     protected $fillable = [
         'course_id',
         'quiz',
-        'choices'
+        'choices1',
+        'choices2',
+        'choices3',
+        'choices4',
     ];
 }

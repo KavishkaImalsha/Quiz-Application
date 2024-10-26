@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('course_id');
             $table->text('quiz');
-            $table->json('choices');
+            $table->text('choice1');
+            $table->text('choice2');
+            $table->text('choice3');
+            $table->text('choice4');
             $table->foreign('course_id')->references('id')->on('courses');
             $table->timestamps();
         });

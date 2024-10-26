@@ -8,6 +8,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use function Laravel\Prompts\select;
 
 class QuizController extends Controller
 {
@@ -20,10 +22,15 @@ class QuizController extends Controller
     {
         $courseName = DB::select('select course_name from courses where id=?', [$data]);
         $quizzes_details = DB::select('SELECT * FROM quizzes WHERE course_id=?', [$data]);
+
         $answers = [];
         foreach ($quizzes_details as $quiz){
-            $answer = DB::select('select * from answers where quiz_id = ?', [$quiz->id]);
-            $answers[$quiz->id] = $answer;
+            $answerDetails = DB::select('select * from answers where quiz_id = ?', [$quiz->id]);
+            $column = $answerDetails[0]->answer;
+            $correctAnswer = DB::table('quizzes')
+                ->where('id', $quiz->id)
+                ->value($column);
+            $answers[$quiz->id] = ['answer' => $correctAnswer, 'desc' => $answerDetails[0]->description];
         }
         return view('quiz.add-quizzes',['courseName' => $courseName[0]->course_name, 'course_id' => $data, 'quizzes' => $quizzes_details, 'answers' => $answers]);
     }
@@ -43,30 +50,33 @@ class QuizController extends Controller
             'choice2' => ['required', 'string'],
             'choice3' => ['required', 'string'],
             'choice4' => ['required', 'string'],
+            'correct' => ['required'],
+            'description' => ['required', 'string']
         ]);
 
         if($validateRequest){
-            $choices = [$validateRequest['choice1'], $validateRequest['choice2'], $validateRequest['choice3'], $validateRequest['choice4']];
-
             $quiz = new quiz();
 
             $quiz->course_id = $data;
             $quiz->quiz = $validateRequest['quiz'];
-            $quiz->choices = json_encode($choices);
+            $quiz->choice1 = $validateRequest['choice1'];
+            $quiz->choice2 = $validateRequest['choice2'];
+            $quiz->choice3 = $validateRequest['choice3'];
+            $quiz->choice4 = $validateRequest['choice4'];
             $quiz->save();
 
             session()->flash('success', '!! Quiz is successfully added !!');
 
-            $quiz_id = DB::select("SELECT id FROM quizzes WHERE quiz=?", [$validateRequest['quiz']]);
+            return redirect()->route('add-answer',['quiz_id' => $quiz->id, 'correctAnswer' => $validateRequest['correct'], 'description' => $validateRequest['description']]);
 
-            return redirect()->route( "answer-register", [$quiz_id[0]->id]);
         }
     }
 
     public function edit($course_id, $quiz_id){
-        $quiz = DB::select('select * from quizzes where id=?', [$quiz_id]);
-        $choices =DB::select('select choices from quizzes where id=?', [$quiz_id]);
-        return \view('quiz.edit-quiz', ['quiz' => $quiz[0], 'choices' => json_decode($choices[0]->choices), 'course_id' => $course_id]);
+        $quizDetails = DB::table('quizzes')->where('id', $quiz_id)->first();
+        $answerDetails = DB::table('answers')->where('quiz_id', $quiz_id)->first();
+        $correctAnswer = DB::table('quizzes')->where('id', $quiz_id)->value($answerDetails->answer);
+        return \view('quiz.edit-quiz', ['quizDetails' => $quizDetails, 'answerDetails' => $answerDetails, 'correctAnswer' => $correctAnswer, 'course_id' => $course_id]);
     }
 
     public function update(Request $request, $quiz_id, $course_id)
@@ -77,17 +87,21 @@ class QuizController extends Controller
             'choice2' => ['required', 'string'],
             'choice3' => ['required', 'string'],
             'choice4' => ['required', 'string'],
+            'correct' => ['required'],
+            'description' => ['required', 'string']
         ]);
 
         if($validateRequest){
-            $choices = [$validateRequest['choice1'], $validateRequest['choice2'], $validateRequest['choice3'], $validateRequest['choice4']];
 
             $quiz = quiz::find($quiz_id);
             $quiz->course_id = $course_id;
             $quiz->quiz = $validateRequest['quiz'];
-            $quiz->choices = json_encode($choices);
+            $quiz->choice1 = $validateRequest['choice1'];
+            $quiz->choice2 = $validateRequest['choice2'];
+            $quiz->choice3 = $validateRequest['choice3'];
+            $quiz->choice4 = $validateRequest['choice4'];
             $quiz->save();
         }
-        return redirect()->route('edit-answer', [$quiz_id, $course_id]);
+        return redirect()->route('update-answer', [$quiz_id, $course_id, $validateRequest['correct'], $validateRequest['description']]);
     }
 }
