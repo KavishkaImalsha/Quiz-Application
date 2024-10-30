@@ -9,6 +9,11 @@
 </head>
 <body>
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Enrolled Courses') }}
+        </h2>
+    </x-slot>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @include('sweetalert::sweetalert')
 
@@ -18,7 +23,7 @@
                 <div class="bg-white border rounded shadow-lg group hover:cursor-pointer">
                     <h1 class="text-center font-bold font-jumbotron text-xl py-2 group-hover:text-2xl">{{$c->course_name}}</h1>
                     <p class="text-lg text-gray-400 px-6 group-hover:text-xl">{{$c->description}}</p>
-                    <a href=""><button type="button" class="w-[50%] ml-[20%] mt-4 text-white bg-gray-800 hover:w-[60%] hover:ml-[15%] hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Attempt to quizzes</button></a>
+                    <a href="{{route('attempt-quizzes', $c->id)}}"><button type="button" class="w-[50%] ml-[20%] mt-4 text-white bg-gray-800 hover:w-[60%] hover:ml-[15%] hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Attempt to quizzes</button></a>
                 </div>
             @endforeach
     @endforeach

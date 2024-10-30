@@ -15,4 +15,9 @@ class course extends Model
         'course_name',
         'description',
     ];
+
+    public function userAnswers()
+    {
+        return $this->hasMany(UserAnswers::class);
+    }
 }

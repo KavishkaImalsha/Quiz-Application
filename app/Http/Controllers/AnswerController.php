@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\User;
+use App\Models\UserAnswers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AnswerController extends Controller
@@ -48,5 +51,20 @@ class AnswerController extends Controller
             session()->flash('quiz_update', '!!! Quiz update Successful !!!');
 
             return redirect()->route('add-quizzes', $course_id);
+    }
+
+    public function checkAnswer(Request $request, $course_id, $quiz_id)
+    {
+        $correctAnswer = DB::table('answers')->where('quiz_id', $quiz_id)->first();
+        $isCorrect = trim($correctAnswer->answer) === trim($request['Answer']);
+        $userAnswer = new UserAnswers();
+
+        $userAnswer->course_id = $course_id;
+        $userAnswer->quiz_id = $quiz_id;
+        $userAnswer->user_id = Auth::user()->id;
+        $userAnswer->isCorrect = $isCorrect;
+        $userAnswer->save();
+
+        return redirect()->route('attempt-quizzes', [$course_id]);
     }
 }

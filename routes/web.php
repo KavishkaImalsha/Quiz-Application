@@ -45,7 +45,12 @@ Route::middleware(['auth', 'role:user'])->group(function (){
 
     Route::get('/user/user-enroll-courses/{userId}/{courseId}', [UserController::class, 'userEnrollCourses'])->name('enroll-course');
     Route::get('/user/user-enroll-courses/{userId}', [UserController::class, 'userEnrolledCourses'])->name('enrolled-courses');
+    Route::get('/user/attempt-quizzes/{courseId}', [UserController::class, 'attemptQuizzes'])->name('attempt-quizzes');
+
+    Route::get('/user/result/{course_id}/{user_id}', [UserController::class, 'showResult'])->name('show-result');
 });
+
+Route::post('/check-answer/{course_id}/{quiz_id}', [AnswerController::class,'checkAnswer'])->name('check-answer');
 
 
 require __DIR__.'/auth.php';
