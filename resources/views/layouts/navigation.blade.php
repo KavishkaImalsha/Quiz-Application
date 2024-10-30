@@ -9,13 +9,29 @@
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
+                @if(Auth::user()->name === 'admin')
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('course-register')" :active="request()->routeIs('course-register')">
+                            {{ __('Add Course') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('quiz-register')" :active="request()->routeIs('quiz-register')">
+                            {{ __('Add Quizzes') }}
+                        </x-nav-link>
+                    </div>
+                @elseif(Auth::user()->name === 'user')
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('user-dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Home') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('enrolled-courses', [Auth::user()->id])" :active="request()->routeIs('course-register')">
+                            {{ __('Courses') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
