@@ -17,11 +17,11 @@
 
         </style>
     </head>
-   <body class="bg-gray-400">
+   <body class="bg-gray-100">
         <x-nav-bar/>
         <div class="mt-8 w-[70%] m-auto">
             <h2 class="text-center text-7xl font-bold text-black font-jumbotron">Sharpen Your Problem-Solving Skills!</h2>
-            <p class="text-center m-10 text-white font-bold text-xl "><span class="text-5xl">" </span>"Want to improve your coding logic and problem-solving? Take our coding quizzes and push your limits. Each quiz is designed to challenge your thinking and help you become a better coder.<span class="text-5xl"> "</span></p>
+            <p class="text-center m-10 text-gray-700 font-bold text-xl "><span class="text-5xl">" </span>"Want to improve your coding logic and problem-solving? Take our coding quizzes and push your limits. Each quiz is designed to challenge your thinking and help you become a better coder.<span class="text-5xl"> "</span></p>
             <div class="flex">
                 <a href="{{route('register')}}" class="m-auto w-[25%] text-center text-bold hover:cursor-pointer focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Sign Up</a>
             </div>
